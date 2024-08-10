@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{trip.name}}</title>
+    <style>
+        @media screen and (min-width: 800px) {
+          .cards {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          }
+        }
+        * {
+            font-family: sans-serif;
+            background-color: #0a0e14;
+            color: #b3b1ad;
+            line-height: 1.2rem;
+        }
+        details {
+            margin-left: 1.5rem;
+            display: grid;
+        }
+        details > span, details > section {
+            margin-left: 1.5rem;
+        }
+        pre {
+            border-radius: 7.5px;
+            font-family: monospace;
+        }
+        em {
+            color: #e6b450;
+        }
+        summary {
+            color: #ff8f40;
+        }
+        .cards {
+          display: grid;
+          gap: 1rem;
+          text-wrap: pretty;
+          padding-right: 1rem;
+        }
+        
+        .card {
+          /* max-width: 20rem; */
+          display: flex;
+          flex-direction: column;
+          border: 1px #333 solid;
+          padding: 1rem;
+          border-radius: 5px;
+          
+        }
+        .card-title {
+          grid-row: 1;
+        }
+        .addr {
+          grid-row: -1;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ trip.name }}</h1>
+
+    <details open id="accommodations">
+        <summary>Accommodations</summary>
+        {% for key in trip.accommodations.keys() -%}
+        {% let item = trip.accommodations[key] %}
+        
+            
+        <details>
+            <summary>{{item.short_name}}</summary>
+
+            <span><em>URL:</em> <a href="{{item.url}}">airbnb</a></span>
+            <span><em>Location:</em> {{ item.location }}</span>
+            <span><em>Check-In:</em> {{ item.check_in|in_timezones(["America/New_York","Asia/Tokyo"]) }}</span>
+            <span><em>Check-Out:</em> {{ item.check_out|in_timezones(["America/New_York","Asia/Tokyo"]) }}</span>
+            <span><em>Pricing:</em></span>
+            <section>
+                {%- for cat in item.pricing.keys() %}
+                {% let prices = item.pricing[cat] %}
+                <details class="pricing" style="display: grid;">
+                <summary>{{cat}}</summary>
+                {% for price in prices %}
+                    <span>{{- price -}}</span>
+                {% endfor %}
+                </details>
+                {% endfor -%}
+            </section>
+            
+
+        </details>
+    
+        {%- endfor %}
+        
+    </details>
+    <details open id="travel">
+        <summary>Travel</summary>
+        
+        {% for key in trip.travel.keys() -%}
+        {% let item = trip.travel[key] %}
+        <details>
+            <summary>{{item.short_name}}</summary>
+            <span><em>URL:</em><a href="{{item.url}}">Directions</a></span>
+            <details open>
+                <summary>Outbound</summary>
+                <section class="departure" style="display:grid;">
+                    <span><em>Location:</em> <a href="https://www.google.com/maps?saddr=My+Location&daddr={{ item.outbound.departure.location }}">{{ item.outbound.departure.location }}</a> </span>
+                    <span><em>Date & Time:</em> {{ item.outbound.departure.datetime|in_timezones(["America/New_York","Asia/Tokyo"]) }}</span>
+                </section>
+            </details>
+            <details open>
+                <summary>Inbound</summary>
+                <section class="arrival" style="display: grid;">
+                    <span><em>Location:</em> <a href="https://www.google.com/maps?saddr=My+Location&daddr={{ item.inbound.departure.location }}">{{ item.inbound.departure.location }}</a></span>
+                    <span><em>Date & Time:</em> {{ item.inbound.departure.datetime|in_timezones(["America/New_York","Asia/Tokyo"]) }}</span>
+                </section>
+            </details>
+            <span><em>Pricing:</em></span>
+            {%- for cat in item.pricing.keys() %}
+            {% let prices = item.pricing[cat] %}
+            <details class="pricing" style="display:grid;">
+            <summary>{{cat}}:</summary>
+            {% for price in prices %}
+                <span>{{- price -}}</span>
+            {% endfor %}
+            </details>
+            {% endfor -%}
+        </details>
+        {%- endfor %}
+    </details>
+    <details open id="activities">
+        <summary>Activities</summary>
+        {% for key in trip.activities.keys() %}
+        {% let item = trip.activities[key] %}
+        <details class="activityCat">
+          <summary>{{key}}</summary>
+          <section>
+            {% for elem in item %}
+            {% match elem %}
+              {% when ActivityEntry::Simple with (text) %}
+              <p>{{text}}</p>
+              {% when ActivityEntry::Definite with (act) %}
+              <p>{{act.description}} - {{act.location}} ({{act.kind}})</p>
+              {% when ActivityEntry::Tentative with {location: loc, events: events, kind: kind} %}
+              <h4><em>{{loc}} ({{kind}})</em></h4>
+              <section class="cards">
+                {% for event in events %}
+                <div class="card">
+                  <span class="card-title">{% if let Some(url) = event.url %}<a href="{{url}}">{{event.name}}</a>{% else %}<p>{{event.name}}</p>{% endif %}</span>
+                  {% if let Some(desc) = event.description %}<p>{{desc}}</p>{% endif %}
+                  {% if let Some(price) = event.price %}<p class="event-price">{{price}}</p>{% endif %}
+                  {% if let Some(addr) = event.address %} <small class="addr"><a href="https://www.google.com/maps?saddr=My+Location&daddr={{ addr }}">{{addr}}</a></small>{% endif %}
+                  
+                </div>
+                {% endfor %}
+              </section>
+            {% endmatch %}
+            {% endfor %}
+          </section>
+        </details>
+        {% endfor %}
+      
+
+    </details>
+</body>
+</html>
