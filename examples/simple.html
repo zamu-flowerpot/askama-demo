@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example trip</title>
+    <style>
+        @media screen and (min-width: 800px) {
+          .cards {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          }
+        }
+        * {
+            font-family: sans-serif;
+            background-color: #0a0e14;
+            color: #b3b1ad;
+            line-height: 1.2rem;
+        }
+        details {
+            margin-left: 1.5rem;
+            display: grid;
+        }
+        details > span, details > section {
+            margin-left: 1.5rem;
+        }
+        pre {
+            border-radius: 7.5px;
+            font-family: monospace;
+        }
+        em {
+            color: #e6b450;
+        }
+        summary {
+            color: #ff8f40;
+        }
+        .cards {
+          display: grid;
+          gap: 1rem;
+          text-wrap: pretty;
+          padding-right: 1rem;
+        }
+        
+        .card {
+          /* max-width: 20rem; */
+          display: flex;
+          flex-direction: column;
+          border: 1px #333 solid;
+          padding: 1rem;
+          border-radius: 5px;
+          
+        }
+        .card-title {
+          grid-row: 1;
+        }
+        .addr {
+          grid-row: -1;
+        }
+    </style>
+</head>
+<body>
+    <h1>example trip</h1>
+
+    <details open id="accommodations">
+        <summary>Accommodations</summary>
+        
+        
+            
+        <details>
+            <summary>Hotel A</summary>
+
+            <span><em>URL:</em> <a href="https://example.com/placeA/hotelA">airbnb</a></span>
+            <span><em>Location:</em> PlaceA</span>
+            <span><em>Check-In:</em> 2024-08-10 03:00:00 EDT, 2024-08-10 16:00:00 JST</span>
+            <span><em>Check-Out:</em> 2024-08-10 22:00:00 EDT, 2024-08-11 11:00:00 JST</span>
+            <span><em>Pricing:</em></span>
+            <section>
+                
+                <details class="pricing" style="display: grid;">
+                <summary>per-person</summary>
+                
+                    <span>0.1 USD</span>
+                
+                </details>
+                
+                
+                <details class="pricing" style="display: grid;">
+                <summary>total</summary>
+                
+                    <span>0.2 USD</span>
+                
+                </details>
+                </section>
+            
+
+        </details>
+        
+            
+        <details>
+            <summary>Hotel B</summary>
+
+            <span><em>URL:</em> <a href="https://example.com/placeB/hotelB">airbnb</a></span>
+            <span><em>Location:</em> PlaceB</span>
+            <span><em>Check-In:</em> 2024-08-11 03:00:00 EDT, 2024-08-11 16:00:00 JST</span>
+            <span><em>Check-Out:</em> 2024-08-19 22:00:00 EDT, 2024-08-20 11:00:00 JST</span>
+            <span><em>Pricing:</em></span>
+            <section>
+                
+                <details class="pricing" style="display: grid;">
+                <summary>subtotal</summary>
+                
+                    <span>900 USD</span>
+                
+                </details>
+                
+                
+                <details class="pricing" style="display: grid;">
+                <summary>taxes</summary>
+                
+                    <span>100 USD</span>
+                
+                </details>
+                </section>
+            
+
+        </details>
+        
+    </details>
+    <details open id="travel">
+        <summary>Travel</summary>
+        
+        
+        <details>
+            <summary>Flight</summary>
+            <span><em>URL:</em><a href="">Directions</a></span>
+            <details open>
+                <summary>Outbound</summary>
+                <section class="departure" style="display:grid;">
+                    <span><em>Location:</em> <a href="https://www.google.com/maps?saddr=My+Location&daddr=Z">Z</a> </span>
+                    <span><em>Date & Time:</em> 2024-08-10 11:00:00 EDT, 2024-08-11 00:00:00 JST</span>
+                </section>
+            </details>
+            <details open>
+                <summary>Inbound</summary>
+                <section class="arrival" style="display: grid;">
+                    <span><em>Location:</em> <a href="https://www.google.com/maps?saddr=My+Location&daddr=B">B</a></span>
+                    <span><em>Date & Time:</em> 2024-08-20 07:00:00 EDT, 2024-08-20 20:00:00 JST</span>
+                </section>
+            </details>
+            <span><em>Pricing:</em></span>
+            
+            <details class="pricing" style="display:grid;">
+            <summary>taxes:</summary>
+            
+                <span>400 USD</span>
+            
+            </details>
+            </details>
+    </details>
+    <details open id="activities">
+        <summary>Activities</summary>
+        
+        
+        <details class="activityCat">
+          <summary>definite</summary>
+          <section>
+            
+            
+              <h4><em>US (Outdoor)</em></h4>
+              <section class="cards">
+                
+                <div class="card">
+                  <span class="card-title"><p>star gazing</p></span>
+                  <p>obviously sitting on lincoln&#x27;s head</p>
+                  
+                   <small class="addr"><a href="https://www.google.com/maps?saddr=My+Location&daddr=Mount Rushmore, US">Mount Rushmore, US</a></small>
+                  
+                </div>
+                
+              </section>
+            
+            
+          </section>
+        </details>
+        
+        
+        <details class="activityCat">
+          <summary>tentative</summary>
+          <section>
+            
+            
+              <p>drink alcohol A</p>
+              
+            
+            
+              <p>drink alcohol B</p>
+              
+            
+            
+              <p>see the sights</p>
+              
+            
+            
+              <h4><em>A (Indoor)</em></h4>
+              <section class="cards">
+                
+                <div class="card">
+                  <span class="card-title"><a href="https://example.com/book/signing/foo">book signing</a></span>
+                  
+                  <p class="event-price">1 book</p>
+                  
+                  
+                </div>
+                
+              </section>
+            
+            
+            
+              <h4><em>B (Outdoor)</em></h4>
+              <section class="cards">
+                
+                <div class="card">
+                  <span class="card-title"><p>Trailgating</p></span>
+                  
+                  <p class="event-price">0 USD</p>
+                  
+                  
+                </div>
+                
+              </section>
+            
+            
+          </section>
+        </details>
+        
+      
+
+    </details>
+</body>
+</html>

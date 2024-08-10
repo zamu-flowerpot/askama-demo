@@ -1,0 +1,72 @@
+name: example trip
+accommodations:
+  2024-08-10/11:
+    location: PlaceA
+    check_in: 2024-08-10T16:00:00+09:00
+    check_out: 2024-08-11T11:00:00+09:00
+    short_name: "Hotel A"
+    url: "https://example.com/placeA/hotelA"
+    pricing:
+      total: 
+        - [.2,USD]
+      per-person:
+        - [.1,USD]
+  2024-08-11/20:
+    location: PlaceB
+    check_in: 2024-08-11T16:00:00+09:00
+    check_out: 2024-08-20T11:00:00+09:00
+    short_name: "Hotel B"
+    url: "https://example.com/placeB/hotelB"
+    pricing: 
+      taxes: 
+        - [100,USD]
+      subtotal: 
+        - [900, USD]
+travel:
+  airfare:
+    short_name: "Flight"
+    url: "" # there is no good reference URL for flights :sadcat:
+    pricing: 
+      taxes: 
+        - [400, USD]
+    outbound:
+      departure:
+        location: Z
+        datetime: 2024-08-10T10:00:00-05:00
+      arrival:
+        location: A
+        datetime: 2024-08-11T10:00:00+09:00
+    inbound:
+      departure:
+        location: B
+        datetime: 2024-08-20T20:00:00+09:00
+      arrival:
+        location: Z
+        datetime: 2024-08-21T13:00:00-05:00
+activities:
+  tentative:
+    - drink alcohol A
+    - drink alcohol B
+    - see the sights
+    - location: A
+      kind: Indoor
+      events:
+        - name: book signing
+          url: https://example.com/book/signing/foo
+          price: [1, book]
+    - location: B
+      kind: Outdoor
+      events:
+        - name: Trailgating
+          price: [0, USD]
+  definite:
+    - location: US
+      kind: Outdoor
+      events:
+        - name: star gazing
+          address: Mount Rushmore, US
+          description: obviously sitting on lincoln's head
+
+          
+
+
